@@ -18,7 +18,7 @@
   "homepage": "https://github.com/shynome/shylog#readme",
   "dependencies": {
     "express": "^4.15.3",
-    "express-tsx": "^4.0.13",
+    "express-tsx": "^4.0.14",
     "glamor": "^3.0.0-3",
     "glamorous": "^3.23.5",
     "react": "^15.6.1",
