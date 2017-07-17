@@ -1,13 +1,17 @@
-import { Router } from "express";
+import { Router,static as staticMiddleware } from "express";
 export const router = Router()
 //config requirejs config
 import { requirejsConfig } from "express-tsx";
+const min = !dev?'.min':''
+const node_modules = '/node_modules'
+router.use(node_modules,staticMiddleware(__dirname+node_modules,{ maxAge:15*24*60*60 }))
 requirejsConfig({
   paths:{
-    'antd'      :'//cdn.bootcss.com/antd/2.12.0/antd'+(!dev?'.min':''),
-  },
-  shim:{
-    'antd'      :{ deps:['css!antd'] },
+    'requirejs' :'/node_modules/requirejs/require.js#',
+    'glamor'    :'/node_modules/glamor/umd/index'+min,
+    'glamorous' :'/node_modules/glamorous/dist/glamorous.umd'+min,
+    'react'     :'/node_modules/react/dist/react'+min,
+    'react-dom' :'/node_modules/react-dom/dist/react-dom'+min,
   }
 })
 //redirect to /
