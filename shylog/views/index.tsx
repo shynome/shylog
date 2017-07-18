@@ -1,4 +1,5 @@
 import React = require('react');
+import { Header, } from 'semantic-ui-react'
 import glamorous from 'glamorous'
 const Styled = glamorous.div({
   '& h1':{

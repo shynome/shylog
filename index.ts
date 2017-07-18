@@ -7,11 +7,12 @@ const node_modules = '/node_modules'
 router.use(node_modules,staticMiddleware(__dirname+node_modules,{ maxAge:15*24*60*60 }))
 requirejsConfig({
   paths:{
-    'requirejs' :'/node_modules/requirejs/require.js#',
-    'glamor'    :'/node_modules/glamor/umd/index'/* +min */,
-    'glamorous' :'/node_modules/glamorous/dist/glamorous.umd'+min,
-    'react'     :'/node_modules/react/dist/react'+min,
-    'react-dom' :'/node_modules/react-dom/dist/react-dom'+min,
+    'requirejs'         :'/node_modules/requirejs/require.js#',
+    'glamor'            :'/node_modules/glamor/umd/index'/* +min */,
+    'glamorous'         :'/node_modules/glamorous/dist/glamorous.umd'+min,
+    'react'             :'/node_modules/react/dist/react'+min,
+    'react-dom'         :'/node_modules/react-dom/dist/react-dom'+min,
+    'semantic-ui-react' :'/node_modules/semantic-ui-react/dist/umd/semantic-ui-react.min.js'
   }
 })
 //redirect to /
