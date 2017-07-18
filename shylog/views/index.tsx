@@ -1,5 +1,4 @@
 import React = require('react');
-import { Header, } from 'semantic-ui-react'
 import glamorous from 'glamorous'
 const Styled = glamorous.div({
   '& h1':{
@@ -15,6 +14,8 @@ const Styled = glamorous.div({
   }
 })
 export default ()=>
-<Styled>
-  <h1>welcome to shylog , it's building</h1>
-</Styled>
+<div>
+  <Styled>
+    <h1>welcome to shylog , it's building</h1>
+  </Styled>
+</div>
