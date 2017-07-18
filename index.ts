@@ -1,5 +1,11 @@
+import './tools'
 import { Router,static as staticMiddleware } from "express";
 export const router = Router()
+//default local set
+router.use((req,res,next)=>{
+  res.locals.lang="zh-hms-cn"
+  next()
+})
 //config requirejs config
 import { requirejsConfig } from "express-tsx";
 const min = !dev?'.min':''
@@ -29,6 +35,9 @@ router.use((req,res,next)=>{
   }
   res.redirect(req.originalUrl+'/')
 })
+//db
+import { router as db } from "./db";
+router.use(db)
 //manger
 import { server as manager } from "./manager";
 router.use('/manager',manager)
