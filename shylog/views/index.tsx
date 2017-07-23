@@ -16,6 +16,7 @@ const Styled = glamorous.div({
 import { App } from './App'
 export class View extends React.Component<any,any>{
   render(){
+    console.log('render')
     return(
     <App>
       <Styled>
