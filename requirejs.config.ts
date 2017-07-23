@@ -34,6 +34,7 @@ requirejsConfig({
     'antd'              :pkg('antd/dist/antd','min'),
   },
   shim:{
-    'antd'              :{ deps:['css!antd'], }
-  }
+    'antd'              :{ deps:['css!antd'], },
+  },
+  waitSeconds           :30
 })
