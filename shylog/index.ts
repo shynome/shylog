@@ -13,5 +13,5 @@ server.use((req,res,next)=>{
 })
 
 server.get('/',(req,res)=>{
-  res.render('./views/index.tsx',{ title:'welcome to shylog' })
+  res.render('./views/index.tsx',{ title:'it is building' })
 })
