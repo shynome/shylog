@@ -13,9 +13,15 @@ const Styled = glamorous.div({
     }
   }
 })
-export default ()=>
-<div>
-  <Styled>
-    <h1>welcome to shylog , it's building</h1>
-  </Styled>
-</div>
+import { App } from './App'
+export class View extends React.Component<any,any>{
+  render(){
+    return(
+    <App>
+      <Styled>
+        <h1>welcome to shylog , it's building</h1>
+      </Styled>
+    </App>
+    )
+  }
+}
