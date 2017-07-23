@@ -19,7 +19,7 @@ export class View extends React.Component<any,any>{
     return(
     <App>
       <Styled>
-        <h1>welcome to shylog , it's building.</h1>
+        <h1>welcome to shylog , it's building...</h1>
       </Styled>
     </App>
     )
