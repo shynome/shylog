@@ -1,7 +1,7 @@
-import express = require('express')
-export const server = express()
 //ser view engie
-import { render } from "express-tsx";
+import { expressTsx } from "express-tsx";
+export const server = expressTsx(__dirname)
+
 server.use((req,res,next)=>{
   if(dev){ return next() }
   let html = res.locals.express_tsx_html
@@ -11,9 +11,7 @@ server.use((req,res,next)=>{
   }
   next()
 })
-server.engine('.tsx',render)
-server.set('views',__dirname)
-server.set('.iew engie','tsx')
-//import dynamic router
-import { router } from "./router";
-server.use(router)
+
+server.get('/',(req,res)=>{
+  res.render('./views/index.tsx',{ title:'welcome to shylog' })
+})

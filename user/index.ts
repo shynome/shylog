@@ -1,10 +1,4 @@
-import express = require('express')
-export const server = express()
-//ser view engie
-import { render } from "express-tsx";
-server.engine('.tsx',render)
-server.set('views',__dirname)
-server.set('.iew engie','tsx')
-//import dynamic router
-import { router } from "./router";
-server.use(router)
+import { expressTsx } from "express-tsx";
+export const server = expressTsx(__dirname)
+//router
+server.get('/',(req,res)=>res.render('./views/index.tsx'))

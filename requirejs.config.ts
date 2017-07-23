@@ -1,8 +1,9 @@
 //config requirejs config
 import { static as staticMiddleware } from "express";
-import { router } from "./index";
+import { Router } from "express";
 import { requirejsConfig } from "express-tsx";
 let pkg:(module:string,min_pkg?:string)=>string
+export const router = Router()
 if(dev){
   const local = '/node_modules'  
   router.use(local,staticMiddleware(__dirname+local,{ maxAge:15*24*60*60 }))

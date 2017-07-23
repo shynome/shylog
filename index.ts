@@ -5,7 +5,9 @@ export const router = Router()
 router.use(next_auto((req,res)=>{
   res.locals.lang="zh-hms-cn"
 }))
-import './requirejs.config'
+//node_modules_static_server
+import { router as node_modules_static_server } from './requirejs.config'
+router.use(node_modules_static_server)
 //redirect to /
 router.use((req,res,next)=>{
   if(0
@@ -26,6 +28,6 @@ router.use('/manager',manager)
 //user
 import { server as user } from "./user";
 router.use('/user',user)
-//server
+//shylog
 import { server as shylog } from "./shylog";
 router.use('/',shylog)
