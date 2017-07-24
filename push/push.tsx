@@ -1,5 +1,5 @@
 import React = require('react')
 export default ()=>
 <div>
-  push
+  push tsx
 </div>
