@@ -22,6 +22,9 @@ router.use((req,res,next)=>{
 //db
 import { router as db } from "./db";
 router.use(db)
+//push test
+import { router as push } from "./push";
+router.use('/push',push)
 //manger
 import { server as manager } from "./manager";
 router.use('/manager',manager)
