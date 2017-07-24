@@ -1,5 +1,5 @@
 import React = require('react')
 export default ()=>
 <div>
-  push tsx login fail
+  login out with error , two
 </div>
