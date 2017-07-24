@@ -13,7 +13,8 @@ export class View extends React.Component<any,void>{
   static Form = glamorous.form({})
   Input = ()=>
   <View.Form action="get">
-    555
+    <input type="search" placeholder="search word"/>
+    <input type="submit"/>
   </View.Form>
   static List = glamorous.ul({})
   List = ()=>
