@@ -20,6 +20,7 @@ export class View extends React.Component<any,void>{
   List = ()=>
   <View.List>
     <li>list</li>
+    <li>list</li>
   </View.List>
   static Main = glamorous.div({
     body:{
