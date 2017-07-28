@@ -25,7 +25,6 @@ if(dev){
 }
 requirejsConfig({
   paths:{
-    'a'                 :'a',
     'requirejs'         :pkg('requirejs/require.js#'),
     'glamor'            :pkg('glamor/umd/index','min'),
     'glamorous'         :pkg('glamorous/dist/glamorous.umd','min'),
