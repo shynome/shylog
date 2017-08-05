@@ -4,6 +4,9 @@ export const router = Router()
 //default local set
 router.use(next_auto((req,res)=>{
   res.locals.lang="zh-hms-cn"
+  if( dev ){
+    res.locals.hotreload = true
+  }
 }))
 //node_modules_static_server
 import { router as node_modules_static_server } from './requirejs.config'
