@@ -5,10 +5,7 @@ export const server = expressTsx(__dirname)
 server.use((req,res,next)=>{
   if(dev){ return next() }
   let html = res.locals.express_tsx_html
-  res.locals.express_tsx_html = async(...r)=>{
-    let _html = await html(...r)
-    return _html.replace('</title>',`</title><script>production="production"</script>`)
-  }
+  res.locals.heads = [].concat(res.locals.heads).concat('<script>production="production"</script>')
   next()
 })
 
