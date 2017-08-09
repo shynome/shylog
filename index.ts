@@ -11,7 +11,7 @@ router.use(next_auto((req,res)=>{
 //node_modules_static_server
 import { router as node_modules_static_server } from './requirejs.config'
 router.use(node_modules_static_server)
-//redirect to /
+//redirect to `/`
 router.use((req,res,next)=>{
   if(0
     ||  Object.keys(req.query).length

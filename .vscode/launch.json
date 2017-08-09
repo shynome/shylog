@@ -9,6 +9,15 @@
       "request": "launch",
       "name": "Launch Program",
       "program": "${workspaceRoot}/ts.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch production",
+      "program": "${workspaceRoot}/ts.js",
+      "env": {
+        "NODE_ENV":"production"
+      }
     }
   ]
 }
