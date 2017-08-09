@@ -7,11 +7,11 @@ const Styled = glamorous.div({
     display:'table', height:'100%', width:'100%',
     '& .middle':{
       display:'table-cell', verticalAlign:'middle',
-      fontSize:'96px',  paddingBottom:'10%',
+      fontSize:'15vw',  paddingBottom:'10%',
     }
   },
   '& span':{
-    transition:'all 1s',
+    transition:'all 3s',
   }
 })
 import { App } from './App'
@@ -20,11 +20,12 @@ export const getRandomColor = ()=>Array.from(' '.repeat(3)).map(getRandomColorNu
 export default class Index extends React.Component<void,any>{
   words = 'shynome'
   state = { next:0 }
+  next = ()=>this.setState((state)=>({
+    ...state,
+    next:state.next+1,
+  }))
   render(){
-    setTimeout(()=>this.setState((state)=>({
-      ...state,
-      next:state.next+1,
-    })),1000)
+    this.state.next ? setTimeout(this.next,3000) : this.next()
     return (
     <Styled>
       <div className="table">
