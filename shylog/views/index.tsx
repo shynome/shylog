@@ -7,7 +7,7 @@ const Styled = glamorous.div({
     display:'table', height:'100%', width:'100%',
     '& .middle':{
       display:'table-cell', verticalAlign:'middle',
-      fontSize:'96px',  /* textTransform:'uppercase',  */
+      fontSize:'96px',  paddingBottom:'10%',
     }
   },
   '& span':{
