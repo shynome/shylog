@@ -33,7 +33,7 @@ import { server as user } from "./user";
 router.use('/user',user)
 //todo
 import { server as todo } from "./todo";
-router  .use('/todo',todo)
+router.use('/todo',todo)
 //shylog
 import { server as shylog } from "./shylog";
 router.use('/',shylog)
