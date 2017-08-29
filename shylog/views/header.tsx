@@ -4,10 +4,11 @@ const Nav = glamorous.nav({
   '& a':{
     display:'inline-block',
     textTransform:'capitalize',
+    background:'red'
   }
 })
-export const header = <nav>
+export const header = <Nav>
   <a href="./articles">articles</a>
   <a href="./timeline">timeline</a>
-  <a href="./about">about</a>
-</nav>
+  <a href="./about">aboutxxxxxxxxx</a>
+</Nav>
