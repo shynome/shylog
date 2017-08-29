@@ -20,7 +20,7 @@
     "@types/mongodb": "^2.2.9",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "express-tsx": "^4.2.5",
+    "express-tsx": "^4.2.7",
     "mongodb": "^2.2.30",
     "ts-node": "^3.3.0",
     "typescript": "^2.4.2"
