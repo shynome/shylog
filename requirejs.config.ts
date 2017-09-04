@@ -32,6 +32,7 @@ requirejsConfig({
     'react-dom'         :pkg('react-dom/dist/react-dom','min'),
     'antd'              :pkg('antd/dist/antd','min'),
     'react-motion'      :pkg('react-motion/build/react-motion'),
+    'react-router-dom'  :pkg('react-router-dom/umd/react-router-dom','min'),
   },
   shim:{
     'antd'              :{ deps:['css!antd'], },

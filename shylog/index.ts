@@ -9,6 +9,10 @@ server.use((req,res,next)=>{
   next()
 })
 
-server.get('/',(req,res)=>{
+server.get('/5',(req,res)=>{
+  res.end('5')
+})
+
+server.get(/\//,(req,res)=>{
   res.render('./views/index.tsx',{ title:'shynome' })
 })
