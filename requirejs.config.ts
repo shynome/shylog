@@ -22,6 +22,7 @@ if(dev){
     min = min ? '.min':''
     return `${cdn}/${module}${min}`
   }
+  
 }
 requirejsConfig({
   paths:{
