@@ -1,5 +1,29 @@
-import React = require('react');
-export default ()=>
-<h1>
-  welcome to user manager.
-</h1>
+//用于注册和登录
+import *as React from 'react';
+import { Tab, Button, Input, Form } from 'semantic-ui-react';
+const { Pane } = Tab
+const { Field } = Form
+export default class extends React.Component {
+  login = ()=>(<Pane>
+    <Form>
+      <Field><Input iconPosition="left" icon="user" placeholder="username"></Input></Field>
+      <Field><Input iconPosition="left" icon="lock" placeholder="password"></Input></Field>
+      <Button type="submit">login in</Button>
+    </Form>
+  </Pane>)
+  sign = ()=>(<Pane>
+    <Form>
+      <Field><Input iconPosition="left" icon="user" placeholder="username"></Input></Field>
+      <Field><Input iconPosition="left" icon="lock" placeholder="password"></Input></Field>
+      <Field><Input iconPosition="left" icon="lock" placeholder="password confirm"></Input></Field>
+      <Button type="submit">sign up</Button>
+    </Form>
+  </Pane>)
+  panes = [
+    { menuItem:'login', render:this.login },
+    { menuItem:'sign', render:this.sign }
+  ]
+  render(){
+    return <Tab panes={this.panes}></Tab>
+  }
+}

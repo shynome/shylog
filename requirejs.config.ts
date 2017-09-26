@@ -34,9 +34,15 @@ requirejsConfig({
     'antd'              :pkg('antd/dist/antd','min'),
     'react-motion'      :pkg('react-motion/build/react-motion'),
     'react-router-dom'  :pkg('react-router-dom/umd/react-router-dom','min'),
+    'semantic-ui-react' :pkg('semantic-ui-react/dist/umd/semantic-ui-react.min'),
+    'semantic-ui-css'   :pkg('semantic-ui-css/semantic','min'),
+  },
+  map:{
+    'semantic-ui-react':{ 'React':'react', 'ReactDOM':'react-dom' },
   },
   shim:{
     'antd'              :{ deps:['css!antd'], },
+    'semantic-ui-react' :{ deps:['css!semantic-ui-css'] },
   },
-  waitSeconds           :30
+  // waitSeconds           :7,
 })
