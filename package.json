@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "node ts",
-    "deploy":"git clone https://github.com/shynome/shylog.git; npm i; pm2 restart shylog"
+    "deploy":"git clone https://github.com/shynome/shylog.git .; npm i; pm2 restart shylog"
   },
   "repository": {
     "type": "git",
