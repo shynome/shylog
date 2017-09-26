@@ -20,10 +20,12 @@ export default class extends React.Component {
     </Form>
   </Pane>)
   panes = [
-    { menuItem:'login', render:this.login },
-    { menuItem:'sign', render:this.sign }
+    { menuItem:'login in', render:this.login },
+    { menuItem:'sign up', render:this.sign }
   ]
   render(){
-    return <Tab panes={this.panes}></Tab>
+    return <div style={{ maxWidth:400, margin:'40px auto' }}>
+      <Tab panes={this.panes}></Tab>
+    </div>
   }
 }
