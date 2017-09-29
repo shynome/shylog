@@ -14,4 +14,4 @@ new Promise(async (resolve,reject)=>{
 )
 
 declare global { var n:middleware_auto_next }
-(global as any).next_auto = n
+(global as any).n = n
