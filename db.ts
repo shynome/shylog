@@ -11,6 +11,6 @@ declare global {
     }
   }
 }
-router.use(next_auto(async(req,res)=>{
-  req.db = await db_client
+router.use(n(async(req,res)=>{
+  (req as any).db = await db_client
 }))

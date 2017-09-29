@@ -2,7 +2,7 @@ import './tools'
 import { Router,static as staticMiddleware } from "express";
 export const router = Router()
 //default local set
-router.use(next_auto((req,res)=>{
+router.use(n((req,res)=>{
   res.locals.lang="zh-hms-cn"
   if( dev ){
     res.locals.hotreload = true

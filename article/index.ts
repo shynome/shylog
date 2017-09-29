@@ -1,7 +1,7 @@
 import { render,expressTsx } from "express-tsx";
 export const server = expressTsx(__dirname)
 //注入 collection
-server.use(next_auto((req,res)=>{
+server.use(n((req,res)=>{
   req.collection = req.db.collection('articles')
 }))
 
