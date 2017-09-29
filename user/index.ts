@@ -54,10 +54,34 @@ server.use(n(async(req,res,next)=>{
 server.post('sign',n(async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
-
+  //check whether the user name has been registered
+  let users = await req.collection.findOne({ username })
+  if(users.length){
+    throw { err:'the user name has been registered', position:'[name=username]' }
+  }
+  await req.collection.insertOne({ username, password })
+  res.jsonp({ err:null, msg:`${username} registration success` })
 }))
 //login in
+interface Token { genetate_time:number, value:string, }
 server.use('login',n(async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
+  let users = await req.collection.findOne({ username, password })
+  if(!users.length){
+    throw { err:'username or password is error', position:'[name=username],[name=password]' }
+  }
+  let [user] = users
+  let tokens:Token[] = user.tokens
+  //update token
+  let now = Date.now()
+  tokens = tokens.filter(({ genetate_time })=>genetate_time+100000>now)
+  tokens.push({
+    genetate_time:Date.now(),
+    value:'',
+  })
+  req.collection.updateOne(user._id,{ tokens })
+  let token = true
+  res.cookie('username',username,{ httpOnly:true })
+  res.cookie('token',token,{ httpOnly:true })
 }))
