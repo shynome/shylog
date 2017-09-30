@@ -7,7 +7,13 @@ server.use(async(req,res,next)=>{
   next()
 })
 //router
-server.get('/',(req,res)=>res.render('./views/index.tsx'))
+const enum RouterRule {
+  home='/',
+  sign='/sign',
+  login='/login'
+}
+server.post(RouterRule.home,(req,res)=>res.end(`404`))
+server.get(RouterRule.home,(req,res)=>res.render('./views/index.tsx'))
 //check
 function check_req_required_name(req:Request,required_names:string[]){
   let miss_val = []
@@ -31,21 +37,20 @@ function check_passord(password:string){
 }
 import { createHmac } from "crypto";
 const secret =`shylog -- secret`
-const enum Action { sign, login }
 export const check_required_field_middleware = async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   let password_confirm = req.params['password_confirm']
   //check required name
   switch(req.params.type){
-    case Action.sign:
+    case RouterRule.sign:
       await check_req_required_name(req,['username','password','password_confirm'])
       await check_passord(password)
       if( password_confirm !== password ){
         throw { err:'password and password_confirm is different', position:'[name=password_confirm]' }
       }
       break
-    case Action.login:
+    case RouterRule.login:
       await check_req_required_name(req,['username','password'])
       await check_passord(password)
       break
@@ -56,7 +61,7 @@ export const check_required_field_middleware = async(req,res,next)=>{
   next()
 }
 //sign up
-server.post('/sign',(req,res,next)=>(req.params.type=Action.sign,next)(),check_required_field_middleware,async(req,res,next)=>{
+server.post(RouterRule.sign,(req,res,next)=>(req.params.type=RouterRule.sign,next)(),check_required_field_middleware,async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   //check whether the user name has been registered
@@ -69,7 +74,9 @@ server.post('/sign',(req,res,next)=>(req.params.type=Action.sign,next)(),check_r
 })
 //login in
 interface Token { genetate_time:number, value:string, }
-server.post('/login',(req,res,next)=>(req.params.type=Action.login,next)(),check_required_field_middleware ,async(req,res,next)=>{
+server.post(RouterRule.login,async(req,res)=>{
+  res.end(`xxxxxxxxxx`)
+  return
   let username = req.params['username']
   let password = req.params['password']
   let users = await req.collection.findOne({ username, password })
@@ -90,4 +97,3 @@ server.post('/login',(req,res,next)=>(req.params.type=Action.login,next)(),check
   res.cookie('username',username,{ httpOnly:true })
   res.cookie('token',token,{ httpOnly:true })
 })
-server.post('/',(req,res)=>res.end(`404`))
