@@ -2,10 +2,10 @@ import { Request } from "express";
 import { expressTsx } from "express-tsx";
 export const server = expressTsx(__dirname)
 //set collection
-server.use(n(async(req,res,next)=>{
+server.use(async(req,res,next)=>{
   req.collection = req.db.collection('user')
   next()
-}))
+})
 //router
 server.get('/',(req,res)=>res.render('./views/index.tsx'))
 //check
@@ -30,7 +30,7 @@ function check_passord(password:string){
 }
 import { createHmac } from "crypto";
 const secret =`shylog -- secret`
-server.post('/',n(async(req,res,next)=>{
+server.post('/',async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   let password_confirm = req.params['password_confirm']
@@ -51,9 +51,9 @@ server.post('/',n(async(req,res,next)=>{
   //slat
   req.params['password'] = createHmac('sha256',secret).update(req.params['password']).digest('hex')
   next()
-}))
+})
 //sign up
-server.post('sign',n(async(req,res,next)=>{
+server.post('sign',async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   //check whether the user name has been registered
@@ -63,10 +63,10 @@ server.post('sign',n(async(req,res,next)=>{
   }
   await req.collection.insertOne({ username, password })
   res.jsonp({ err:null, msg:`${username} registration success` })
-}))
+})
 //login in
 interface Token { genetate_time:number, value:string, }
-server.use('login',n(async(req,res,next)=>{
+server.use('login',async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   let users = await req.collection.findOne({ username, password })
@@ -86,5 +86,5 @@ server.use('login',n(async(req,res,next)=>{
   let token = true
   res.cookie('username',username,{ httpOnly:true })
   res.cookie('token',token,{ httpOnly:true })
-}))
+})
 server.use('/',(req,res)=>res.end(`404`))

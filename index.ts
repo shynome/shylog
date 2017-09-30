@@ -1,13 +1,13 @@
-import './tools'
 import { Router,static as staticMiddleware } from "express";
 export const router = Router()
 //default local set
-router.use(n((req,res)=>{
+router.use((req,res,next)=>{
   res.locals.lang="zh-hms-cn"
   if( dev ){
     res.locals.hotreload = true
   }
-}))
+  next()
+})
 //node_modules_static_server
 import { router as node_modules_static_server } from './requirejs.config'
 router.use(node_modules_static_server)
