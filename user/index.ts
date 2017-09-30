@@ -6,13 +6,13 @@ server.use(async(req,res,next)=>{
   req.collection = req.db.collection('user')
   next()
 })
-//router
+//router rules
 const enum RouterRule {
   home='/',
   sign='/sign',
   login='/login'
 }
-server.post(RouterRule.home,(req,res)=>res.end(`404`))
+server.get(RouterRule.home,(req,res)=>res.end(`404`))
 server.get(RouterRule.home,(req,res)=>res.render('./views/index.tsx'))
 //check
 function check_req_required_name(req:Request,required_names:string[]){
@@ -29,7 +29,7 @@ function check_req_required_name(req:Request,required_names:string[]){
   if(miss_val.length){
     throw miss_val    
   }
-} 
+}
 function check_passord(password:string){
   if(password.length<6){
     throw { err:`password is too short.it can't be shorter than 6`, position:'[name=password]' }
