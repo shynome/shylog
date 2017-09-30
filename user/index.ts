@@ -12,13 +12,11 @@ const enum RouterRule {
   sign='/sign',
   login='/login'
 }
-server.get(RouterRule.home,(req,res)=>res.end(`404`))
 server.get(RouterRule.home,(req,res)=>res.render('./views/index.tsx'))
 //check
 function check_req_required_name(req:Request,required_names:string[]){
   let miss_val = []
   for(let required_name of required_names){
-    debugger
     if(!req.params[required_name]){
       miss_val.push({
         err:`${required_name} is required`,
@@ -30,38 +28,37 @@ function check_req_required_name(req:Request,required_names:string[]){
     throw miss_val    
   }
 }
-function check_passord(password:string){
+function check_passord(password:string){ 
   if(password.length<6){
     throw { err:`password is too short.it can't be shorter than 6`, position:'[name=password]' }
   }
 }
 import { createHmac } from "crypto";
 const secret =`shylog -- secret`
-export const check_required_field_middleware = async(req,res,next)=>{
+server.use(async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   let password_confirm = req.params['password_confirm']
   //check required name
-  switch(req.params.type){
-    case RouterRule.sign:
+  switch(true){
+    case req.path.indexOf(RouterRule.sign)===0:
       await check_req_required_name(req,['username','password','password_confirm'])
       await check_passord(password)
       if( password_confirm !== password ){
         throw { err:'password and password_confirm is different', position:'[name=password_confirm]' }
       }
       break
-    case RouterRule.login:
+    case req.path.indexOf(RouterRule.login)===0:
       await check_req_required_name(req,['username','password'])
       await check_passord(password)
       break
   }
   //slat
-  debugger
   req.params['password'] = createHmac('sha256',secret).update(password).digest('hex')
   next()
-}
+})
 //sign up
-server.post(RouterRule.sign,(req,res,next)=>(req.params.type=RouterRule.sign,next)(),check_required_field_middleware,async(req,res,next)=>{
+server.post(RouterRule.sign,async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   //check whether the user name has been registered

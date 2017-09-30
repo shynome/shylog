@@ -10,6 +10,6 @@ import { router } from "./";
 server.use(router)
 
 //handle error
-let errorHnadler = (err:Error)=>console.error(err.stack)
+let errorHnadler = (err:Error)=>console.error(err && err.stack || err)
 process.on('uncaughtException',errorHnadler)
 process.on('unhandledRejection',errorHnadler)
