@@ -8,3 +8,8 @@ server.use(express_tsx_middleware)
 //add dynamic router 
 import { router } from "./";
 server.use(router)
+
+//handle error
+let errorHnadler = (err:Error)=>console.error(err.stack)
+process.on('uncaughtException',errorHnadler)
+process.on('unhandledRejection',errorHnadler)

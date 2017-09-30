@@ -12,6 +12,7 @@ server.get('/',(req,res)=>res.render('./views/index.tsx'))
 function check_req_required_name(req:Request,required_names:string[]){
   let miss_val = []
   for(let required_name of required_names){
+    debugger
     if(!req.params[required_name]){
       miss_val.push({
         err:`${required_name} is required`,
@@ -30,30 +31,32 @@ function check_passord(password:string){
 }
 import { createHmac } from "crypto";
 const secret =`shylog -- secret`
-server.post('/',async(req,res,next)=>{
+const enum Action { sign, login }
+export const check_required_field_middleware = async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   let password_confirm = req.params['password_confirm']
   //check required name
-  switch(req.path){
-    case 'sign':
+  switch(req.params.type){
+    case Action.sign:
       await check_req_required_name(req,['username','password','password_confirm'])
       await check_passord(password)
       if( password_confirm !== password ){
         throw { err:'password and password_confirm is different', position:'[name=password_confirm]' }
       }
       break
-    case 'login':
+    case Action.login:
       await check_req_required_name(req,['username','password'])
       await check_passord(password)
       break
   }
   //slat
-  req.params['password'] = createHmac('sha256',secret).update(req.params['password']).digest('hex')
+  debugger
+  req.params['password'] = createHmac('sha256',secret).update(password).digest('hex')
   next()
-})
+}
 //sign up
-server.post('sign',async(req,res,next)=>{
+server.post('/sign',(req,res,next)=>(req.params.type=Action.sign,next)(),check_required_field_middleware,async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   //check whether the user name has been registered
@@ -66,7 +69,7 @@ server.post('sign',async(req,res,next)=>{
 })
 //login in
 interface Token { genetate_time:number, value:string, }
-server.use('login',async(req,res,next)=>{
+server.post('/login',(req,res,next)=>(req.params.type=Action.login,next)(),check_required_field_middleware ,async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   let users = await req.collection.findOne({ username, password })
@@ -87,4 +90,4 @@ server.use('login',async(req,res,next)=>{
   res.cookie('username',username,{ httpOnly:true })
   res.cookie('token',token,{ httpOnly:true })
 })
-server.use('/',(req,res)=>res.end(`404`))
+server.post('/',(req,res)=>res.end(`404`))
