@@ -4,6 +4,7 @@ export const server = expressTsx(__dirname)
 //set collection
 server.use(n(async(req,res,next)=>{
   req.collection = req.db.collection('user')
+  next()
 }))
 //router
 server.get('/',(req,res)=>res.render('./views/index.tsx'))
@@ -11,7 +12,7 @@ server.get('/',(req,res)=>res.render('./views/index.tsx'))
 function check_req_required_name(req:Request,required_names:string[]){
   let miss_val = []
   for(let required_name of required_names){
-    if(!req.params[required_name)]{
+    if(!req.params[required_name]){
       miss_val.push({
         err:`${required_name} is required`,
         position:`[name=${required_name}]`
@@ -29,7 +30,7 @@ function check_passord(password:string){
 }
 import { createHmac } from "crypto";
 const secret =`shylog -- secret`
-server.use(n(async(req,res,next)=>{
+server.post('/',n(async(req,res,next)=>{
   let username = req.params['username']
   let password = req.params['password']
   let password_confirm = req.params['password_confirm']
@@ -49,6 +50,7 @@ server.use(n(async(req,res,next)=>{
   }
   //slat
   req.params['password'] = createHmac('sha256',secret).update(req.params['password']).digest('hex')
+  next()
 }))
 //sign up
 server.post('sign',n(async(req,res,next)=>{
@@ -85,3 +87,4 @@ server.use('login',n(async(req,res,next)=>{
   res.cookie('username',username,{ httpOnly:true })
   res.cookie('token',token,{ httpOnly:true })
 }))
+server.use('/',(req,res)=>res.end(`404`))
