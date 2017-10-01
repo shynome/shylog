@@ -1,0 +1,15 @@
+# Architecture
+- apis
+  - articles
+    - query
+    - create
+    - delete
+    - edit
+  - user
+    - login
+    - delete 
+    - authority
+- views
+  - articles
+  - manager
+  - user
