@@ -17,7 +17,7 @@ server.get(RouterRule.home,(req,res)=>res.render('./views/index.tsx'))
 function check_req_required_name(req:Request,required_names:string[]){
   let miss_val = []
   for(let required_name of required_names){
-    if(!req.params[required_name]){
+    if(!req.body[required_name]){
       miss_val.push({
         err:`${required_name} is required`,
         position:`[name=${required_name}]`
@@ -35,10 +35,13 @@ function check_passord(password:string){
 }
 import { createHmac } from "crypto";
 const secret =`shylog -- secret`
-server.use(async(req,res,next)=>{
-  let username = req.params['username']
-  let password = req.params['password']
-  let password_confirm = req.params['password_confirm']
+import { urlencoded } from "body-parser";
+server.use(urlencoded(), async(req,res,next)=>{
+  console.log(req.body) 
+  debugger
+  let username = req.body['username']
+  let password = req.body['password']
+  let password_confirm = req.body['password_confirm']
   //check required name
   switch(true){
     case req.path.indexOf(RouterRule.sign)===0:
@@ -54,13 +57,13 @@ server.use(async(req,res,next)=>{
       break
   }
   //slat
-  req.params['password'] = createHmac('sha256',secret).update(password).digest('hex')
+  req.body['password'] = createHmac('sha256',secret).update(password).digest('hex')
   next()
 })
 //sign up
 server.post(RouterRule.sign,async(req,res,next)=>{
-  let username = req.params['username']
-  let password = req.params['password']
+  let username = req.body['username']
+  let password = req.body['password']
   //check whether the user name has been registered
   let users = await req.collection.findOne({ username })
   if(users.length){
@@ -74,8 +77,8 @@ interface Token { genetate_time:number, value:string, }
 server.post(RouterRule.login,async(req,res)=>{
   res.end(`xxxxxxxxxx`)
   return
-  let username = req.params['username']
-  let password = req.params['password']
+  let username = req.body['username']
+  let password = req.body['password']
   let users = await req.collection.findOne({ username, password })
   if(!users.length){
     throw { err:'username or password is error', position:'[name=username],[name=password]' }

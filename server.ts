@@ -1,4 +1,5 @@
 import express = require('express')
+import 'express-async-errors'
 export const server = express()
 export const PORT = process.env.PORT || 8000
 server.listen(PORT,function(){ console.log(`server is running on ${this.address().port}`) })
