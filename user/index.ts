@@ -1,63 +1,43 @@
 import { Request } from "express";
 import { expressTsx } from "express-tsx";
 export const server = expressTsx(__dirname)
+//parse form body
+import { urlencoded } from "body-parser";
+server.use(urlencoded())
 //set collection
 server.use(async(req,res,next)=>{
   req.collection = req.db.collection('user')
   next()
 })
 //router rules
-const enum RouterRule {
+export const enum RouterRule {
+  porfile='/profile',
   home='/',
   sign='/sign',
   login='/login'
 }
-server.get(RouterRule.home,(req,res)=>res.render('./views/index.tsx'))
+//login state check
+declare module 'http' { interface IncomingMessage{ user:any } }
+server.use(async(req,res,next)=>{
+  next()
+})
+server.get(RouterRule.home,(req,res)=>{
+  if(!req.user){
+    res.render('./views/login.tsx',{ title:'login or sign' })
+    return
+  }else{
+    res.redirect('./profile')
+  }
+})
+server.get(RouterRule.porfile,(req,res)=>res.render('./views/profile.tsx',{ title:'user center' }))
 //check
-function check_req_required_name(req:Request,required_names:string[]){
-  let miss_val = []
-  for(let required_name of required_names){
-    if(!req.body[required_name]){
-      miss_val.push({
-        err:`${required_name} is required`,
-        position:`[name=${required_name}]`
-      })
-    }
-  }
-  if(miss_val.length){
-    throw miss_val    
-  }
-}
-function check_passord(password:string){ 
-  if(password.length<6){
-    throw { err:`password is too short.it can't be shorter than 6`, position:'[name=password]' }
-  }
-}
+import { check } from "./check";
+server.use(check)
+//slat
 import { createHmac } from "crypto";
 const secret =`shylog -- secret`
-import { urlencoded } from "body-parser";
-server.use(urlencoded(), async(req,res,next)=>{
-  console.log(req.body) 
-  debugger
-  let username = req.body['username']
-  let password = req.body['password']
-  let password_confirm = req.body['password_confirm']
-  //check required name
-  switch(true){
-    case req.path.indexOf(RouterRule.sign)===0:
-      await check_req_required_name(req,['username','password','password_confirm'])
-      await check_passord(password)
-      if( password_confirm !== password ){
-        throw { err:'password and password_confirm is different', position:'[name=password_confirm]' }
-      }
-      break
-    case req.path.indexOf(RouterRule.login)===0:
-      await check_req_required_name(req,['username','password'])
-      await check_passord(password)
-      break
-  }
-  //slat
-  req.body['password'] = createHmac('sha256',secret).update(password).digest('hex')
+server.use((req,res,next)=>{
+  req.body['password'] = createHmac('sha256',secret).update(req.body['password']).digest('hex')
   next()
 })
 //sign up
