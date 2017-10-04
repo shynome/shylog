@@ -5,17 +5,17 @@ const { Pane } = Tab
 const { Field } = Form
 export default class extends React.Component {
   login = ()=>(<Pane>
-    <Form method="POST" action="./login">
-      <Field><Input iconPosition="left" icon="user" placeholder="username"></Input></Field>
-      <Field><Input iconPosition="left" icon="lock" placeholder="password"></Input></Field>
+    <Form method="post" action="./login">
+      <Field><Input iconPosition="left" icon="user" placeholder="username" name="username"></Input></Field>
+      <Field><Input iconPosition="left" icon="lock" placeholder="password" name="password"></Input></Field>
       <Button type="submit">login in</Button>
     </Form>
   </Pane>)
   sign = ()=>(<Pane>
-    <Form>
-      <Field><Input iconPosition="left" icon="user" placeholder="username"></Input></Field>
-      <Field><Input iconPosition="left" icon="lock" placeholder="password"></Input></Field>
-      <Field><Input iconPosition="left" icon="lock" placeholder="password confirm"></Input></Field>
+    <Form method="post" action="./sign">
+      <Field><Input iconPosition="left" icon="user" placeholder="username" name="username"></Input></Field>
+      <Field><Input iconPosition="left" icon="lock" placeholder="password" name="password"></Input></Field>
+      <Field><Input iconPosition="left" icon="lock" placeholder="password confirm" name="password_confirm"></Input></Field>
       <Button type="submit">sign up</Button>
     </Form>
   </Pane>)
