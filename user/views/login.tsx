@@ -7,15 +7,15 @@ export default class extends React.Component {
   login = ()=>(<Pane>
     <Form method="post" action="./login">
       <Field><Input iconPosition="left" icon="user" placeholder="username" name="username"></Input></Field>
-      <Field><Input iconPosition="left" icon="lock" placeholder="password" name="password"></Input></Field>
+      <Field><Input iconPosition="left" icon="lock" placeholder="password" type="password" name="password"></Input></Field>
       <Button type="submit">login in</Button>
     </Form>
   </Pane>)
   sign = ()=>(<Pane>
     <Form method="post" action="./sign">
       <Field><Input iconPosition="left" icon="user" placeholder="username" name="username"></Input></Field>
-      <Field><Input iconPosition="left" icon="lock" placeholder="password" name="password"></Input></Field>
-      <Field><Input iconPosition="left" icon="lock" placeholder="password confirm" name="password_confirm"></Input></Field>
+      <Field><Input iconPosition="left" icon="lock" placeholder="password" type="password" name="password"></Input></Field>
+      <Field><Input iconPosition="left" icon="lock" placeholder="password confirm" type="password" name="password_confirm"></Input></Field>
       <Button type="submit">sign up</Button>
     </Form>
   </Pane>)
